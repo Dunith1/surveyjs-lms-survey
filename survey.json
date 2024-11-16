@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SurveyJS LMS Impact Survey</title>
+    <!-- Include SurveyJS CSS and JavaScript -->
+    <link href="https://unpkg.com/survey-core/survey.min.css" type="text/css" rel="stylesheet">
+    <script src="https://unpkg.com/survey-core/survey.min.js"></script>
+</head>
+<body>
+    <div id="surveyContainer"></div>
+
+    <script>
+        // Define the survey JSON
+        var surveyJson = {
+            title: "LMS Impact on Students in Sri Lanka",
+            description: "Dear Student, I am Dunith Hatharasinghe, a final-year student at LSE, conducting research on the impact of Learning Management Systems (LMS) on students in Sri Lanka. Your responses are anonymous and will be used for research purposes only. Thank you for your participation!",
+            pages: [
+                {
+                    name: "general_information",
+                    title: "General Information",
+                    elements: [
+                        {
+                            type: "dropdown",
+                            name: "university",
+                            title: "Which university are you currently studying at?",
+                            isRequired: true,
+                            choices: [
+                                "Royal Institute of Colombo (RIC)",
+                                "University of Colombo",
+                                "General Sir John Kotelawala Defence University Sri Lanka",
+                                "Asia Pacific Institute of Information Technology (APIIT)",
+                                "Sri Lanka Institute of Information Technology (SLIIT)",
+                                "London School of Economics (LSE)",
+                                "University of Peradeniya",
+                                "Other"
+                            ]
+                        },
+                        {
+                            type: "dropdown",
+                            name: "year_of_study",
+                            title: "What is your year of study?",
+                            isRequired: true,
+                            choices: [
+                                "First year",
+                                "Second year",
+                                "Third year",
+                                "Final year"
+                            ]
+                        },
+                        {
+                            type: "dropdown",
+                            name: "age_group",
+                            title: "What is your age group?",
+                            isRequired: true,
+                            choices: [
+                                "18-21",
+                                "22-25",
+                                "26-30",
+                                "31 and above"
+                            ]
+                        },
+                        {
+                            type: "dropdown",
+                            name: "gender",
+                            title: "What is your gender?",
+                            isRequired: true,
+                            choices: [
+                                "Male",
+                                "Female",
+                                "Other",
+                                "Prefer not to say"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "technology_access",
+                    title: "Access to Technology and Connectivity",
+                    elements: [
+                        {
+                            type: "dropdown",
+                            name: "device_access",
+                            title: "What kind of device do you primarily use to access the LMS?",
+                            isRequired: true,
+                            choices: [
+                                "Desktop Computer",
+                                "Laptop",
+                                "Tablet",
+                                "Smartphone"
+                            ]
+                        },
+                        {
+                            type: "rating",
+                            name: "internet_reliability",
+                            title: "How would you rate the reliability of your internet connection for accessing the LMS?",
+                            isRequired: true,
+                            rateValues: [
+                                { value: 1, text: "Very Poor" },
+                                { value: 2, text: "Poor" },
+                                { value: 3, text: "Average" },
+                                { value: 4, text: "Good" },
+                                { value: 5, text: "Very Good" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "lms_usage",
+                    title: "LMS Usage",
+                    elements: [
+                        {
+                            type: "radiogroup",
+                            name: "lms_use",
+                            title: "Does your university currently use an LMS (Learning Management System, such as Moodle or Blackboard)?",
+                            isRequired: true,
+                            choices: [
+                                { value: "yes", text: "Yes" },
+                                { value: "no", text: "No" }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "no_lms_section",
+                    title: "For Students Whose University Does NOT Use an LMS",
+                    visibleIf: "{lms_use} = 'no'",
+                    elements: [
+                        {
+                            type: "checkbox",
+                            name: "materials_access_method",
+                            title: "If your university does not have an LMS, how do you access course materials and communicate with instructors?",
+                            isRequired: true,
+                            choices: [
+                                "Email",
+                                "Physical handouts/printed materials",
+                                "Social media groups (WhatsApp, Facebook, etc.)",
+                                "Google Classroom or similar tools",
+                                "Other"
+                            ],
+                            hasOther: true
+                        },
+                        {
+                            type: "rating",
+                            name: "no_lms_performance_effect",
+                            title: "Do you feel that not having an LMS affects your academic performance?",
+                            isRequired: true,
+                            rateMin: 1,
+                            rateMax: 5,
+                            minRateDescription: "Not at all",
+                            maxRateDescription: "Very significantly"
+                        },
+                        {
+                            type: "radiogroup",
+                            name: "prefer_lms",
+                            title: "Would you prefer if your university implemented an LMS?",
+                            isRequired: true,
+                            choices: [
+                                "Yes",
+                                "No",
+                                "Not sure"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "lms_users_section",
+                    title: "For Students Whose University Uses an LMS",
+                    visibleIf: "{lms_use} = 'yes'",
+                    elements: [
+                        {
+                            type: "dropdown",
+                            name: "login_frequency",
+                            title: "How often do you log into the LMS each week?",
+                            isRequired: true,
+                            choices: [
+                                "1–2 times",
+                                "3–5 times",
+                                "6–8 times",
+                                "More than 8 times"
+                            ]
+                        },
+                        {
+                            type: "dropdown",
+                            name: "lms_hours",
+                            title: "On average, how many hours per week do you spend using the LMS?",
+                            isRequired: true,
+                            choices: [
+                                "Less than 1 hour",
+                                "1–3 hours",
+                                "4–6 hours",
+                                "More than 6 hours"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    name: "submission_page",
+                    title: "Thank You",
+                    elements: [
+                        {
+                            type: "html",
+                            name: "thank_you",
+                            html: "<h4>Thank you for participating in this survey! Your responses will contribute significantly to improving LMS systems and understanding how gamification can enhance learning for students in Sri Lanka.</h4>"
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Render the survey
+        var survey = new Survey.Model(surveyJson);
+        survey.onComplete.add(function (result) {
+            document.querySelector('#surveyContainer').innerHTML = "The results are: " + JSON.stringify(result.data);
+        });
+
+        Survey.StylesManager.applyTheme("default");
+        Survey.SurveyNG.render("surveyContainer", { model: survey });
+    </script>
+</body>
+</html>
